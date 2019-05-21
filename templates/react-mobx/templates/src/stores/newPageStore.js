@@ -3,7 +3,7 @@ import { fetchData } from 'flarej/lib/utils/fetchConfig';
 import { autobind } from 'core-decorators';
 import { Notification } from 'flarej/lib/components/antd/notification';
 
-export default class #{pageName | pascal}#Store {
+export default class #{pageName | capitalize}#Store {
   @observable pageIndex = 1;
   @observable pageSize = 10;
   @observable count = 0;
@@ -24,7 +24,7 @@ export default class #{pageName | pascal}#Store {
           this.pageSize = 10;
           this.count = 0;
           this.tableData = [];
-          Notification.error({ description: '获取表格数据出错，错误是:' + result.msg, duration: null });
+          Notification.error({ description: '获取表格数据出错，异常是:' + result.msg, duration: null });
         }
       });
     }, {

@@ -1,5 +1,10 @@
 # NornJ-cli
-The CLI for scaffolding NornJ template projects, and do more things.
+
+The CLI for scaffolding [NornJ](https://github.com/joe-sky/nornj) template projects, and do more things.
+
+[![NPM Version][npm-image]][npm-url]
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![NPM Downloads][downloads-image]][npm-url]
 
 ### 安装
 
@@ -16,30 +21,103 @@ npm install -g nornj-cli
 ```sh
 nj init
 
-Template Name: react-mobx  # 项目模板名称
-Project Name: projectName  # 新创建的项目名称
-Do you need to use layout on server side(Y/N)?  # 是否使用服务端layout
+# 请按上下键选择项目模板
+Please select a project template:
+> react-mst-universal
+  react-mst-app
+  react-mst
+  react-mobx
+  other
+
+# 如果选择了other，则可输入任意模板名称
+Template Name: anyTemplateName
+
+# 输入新建的项目目录名称
+Project Name: projectName
 ```
 
-#### 在已有代码中增加新页面
+#### 添加新页面
 
 * 进入已有项目目录后，输入如下命令创建新页面：
 
 ```sh
-nj add-page # 或nj ap
+nj add-page [pageName]  # 或nj ap
 
-Page Name: pageName  # 新创建的页面名称
-Do you want to generate chart page(Y/N)?  # 是否生成图表页面
+# 请选择生成时要使用的页面模板
+Which page template do you want to use?
+> default  # 增删改查
+  chart    # 图表
+  form     # 表单
+  empty    # 空页面
+
+# 输入新创建的页面名称
+Page Name: pageName
+```
+
+#### 添加新组件
+
+* 进入已有项目目录后，输入如下命令创建新组件：
+
+```sh
+nj add-component [componentName]  # 或nj ac
+
+# 请选择生成时要使用的组件模板
+Which component template do you want to use?
+> default       # 默认
+  stateless     # 无状态组件
+  higher-order  # 高阶组件
+
+# 输入新创建的组件名称
+Component Name: componentName
+```
+
+#### 添加新Store
+
+* 进入已有项目目录后，输入如下命令创建新Store：
+
+```sh
+nj add-store [storeName]  # 或nj as
+
+# 请选择生成时要使用的Store模板
+Which store template do you want to use?
+> default       # 默认使用axios
+  default-fetch # 使用fetch
+
+# 输入新创建的Store名称
+Store Name: storeName
 ```
 
 #### 选择项目模板
 
-| 名称           | 描述                      |
-|:---------------|:-------------------------|
-| react-mobx     | 基于React+Mobx的多页面项目 |
-| react-mst      | 基于React+Mobx-state-tree的单页面项目 |
-| Y-Dept/react-mobx-ls | 基于React+Mobx的多页面项目(接入零智平台) |
-| Y-Dept/template-saas | 基于React+Mobx-state-tree的SAAS化平台单页面项目 |
+| 名称           | 描述                      | 模板源码地址                |
+|:---------------|:-------------------------|:--------------------------|
+| react-mst-universal      | 基于React+Mobx-state-tree的单页面项目<br><ul><li>组件开发规范默认使用`JSX`</li><li>样式开发默认集成了`styled-jsx`和`css-modules`</li><li>请求数据使用`axios`</li><li>echarts组件使用`echarts-for-react`</li><li>集成了可增强JSX开发的插件[babel-plugin-nornj-in-jsx](https://github.com/joe-sky/nornj/blob/master/packages/babel-plugin-nornj-in-jsx/README.md)</li><li>预置`eslint`、`stylelint`、`prettier`，可在格式化时对代码风格进行自动检查并修复</li></ul> | https://github.com/joe-sky/nornj-cli/tree/master/templates/react-mst-universal |
+| react-mst-app      | `react-mst-universal`的h5版，配置同上 | https://github.com/joe-sky/nornj-cli/tree/master/templates/react-mst-app |
+| react-mst      | 基于React+Mobx-state-tree的单页面项目<br><ul><li>组件开发规范默认使用`NornJ`</li></ul> | https://github.com/joe-sky/nornj-cli/tree/master/templates/react-mst |
+| react-mobx     | 基于React+Mobx的多页面项目 | https://github.com/joe-sky/nornj-cli/tree/master/templates/react-mobx |
+| joe-sky/react-mobx-html     | 基于React+Mobx的多页面项目(html版) | https://github.com/joe-sky/react-mobx-html |
+| joe-sky/react-mobx-ftl     | 基于React+Mobx的多页面项目(FreeMarker版) | https://github.com/joe-sky/react-mobx-ftl |
+
+#### 使用自定义模板
+
+1. 在github上创建一个新的模板项目即可，结构类似于[react-mobx-html](https://github.com/joe-sky/react-mobx-html)或[react-mobx-ftl](https://github.com/joe-sky/react-mobx-ftl)。
+
+2. 然后使用以下命令即可下载并初始化：
+
+```sh
+nj init
+
+# 请按上下键选择项目模板
+Please select a project template:
+  react-mst-universal
+  react-mst-app
+  react-mst
+  react-mobx
+> other
+
+# 选择other，然后按照github地址输入"用户(或组织)名/项目名"，例如"https://github.com/joe-sky/react-mobx-html"中的"joe-sky/react-mobx-htm"
+Template Name: UserName/ProjectName
+```
 
 #### 查看cli当前版本
 
@@ -50,21 +128,45 @@ nj -v
 #### cli版本更新
 
 ```sh
-nj upgrade  # 更新cli到最新版
+nj upgrade  # 更新cli版本到最新版
 ```
 
 #### 安装npm包
 
+与`npm install`相同，区别在于部署在私服上的包会自动从私服安装：
+
 ```sh
-nj install # 或nj i
+nj install  # 或nj i
 ```
 
 #### 更新npm包
 
+与`npm update`相同，区别在于部署在私服上的包会自动从私服更新：
+
 ```sh
-nj update # 或nj up
+nj update  # 或nj up
 ```
+
+### 可选择使用npm国内镜像
+
+当网络访问npm比较慢时，可选择使用`npm国内镜像`来安装。方法为在各命令后添加`--cnpm`参数：
+
+```sh
+nj init --cnpm
+nj upgrade --cnpm
+nj install --cnpm
+nj update --cnpm
+```
+
+### 相关文档
+
+* [技术与框架列表](https://github.com/joe-sky/nornj-cli/blob/master/docs/learningGuide.md)
+* [快速上手文档](https://github.com/joe-sky/nornj-cli/blob/master/docs/guides/overview.md)
 
 ## License
 
 MIT
+
+[npm-image]: https://img.shields.io/npm/v/nornj-cli.svg
+[downloads-image]: https://img.shields.io/npm/dm/nornj-cli.svg
+[npm-url]: https://www.npmjs.org/package/nornj-cli

@@ -1,4 +1,5 @@
-import { Component } from 'react'
+import { Component } from 'react';
+import { capitalize } from './src/utils/util';
 
 class Bundle extends Component {
   constructor(props) {
@@ -6,7 +7,7 @@ class Bundle extends Component {
     this.state = {
       // short for "module" but that's a keyword in js, so "mod"
       mod: null
-    }
+    };
   }
 
   componentWillMount() {
@@ -18,7 +19,10 @@ class Bundle extends Component {
       }
       Promise.all(fetchs).then(() => {
         if (isPc) {
-          this.load({ load: loadBundles[`load${store.sider.current}`] });
+          const current = capitalize(store.sider.current);
+          this.load({
+            load: loadBundles[`load${current.indexOf('/') >= 0 ? current.split('/')[0] : current}`]
+          });
         } else {
           this.load(this.props);
         }
@@ -33,24 +37,24 @@ class Bundle extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.load !== this.props.load) {
-      this.load(nextProps)
+      this.load(nextProps);
     }
   }
 
   load(props) {
     this.setState({
       mod: null
-    })
+    });
     props.load((mod) => {
       this.setState({
         // handle both es imports and cjs
         mod: mod.default ? mod.default : mod
-      })
-    })
+      });
+    });
   }
 
   render() {
-    return this.state.mod ? this.props.children(this.state.mod) : null
+    return this.state.mod ? this.props.children(this.state.mod) : null;
   }
 }
 

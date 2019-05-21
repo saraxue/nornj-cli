@@ -7,15 +7,17 @@
 <#-headElements />
 <body>
 <#-resourceElements />
-<#-if #{!(useLayout)}#><link href="/resources/app/css/common.css?ver=<%=ver%>" rel="stylesheet" /></#-if>
+<link href="/resources/app/css/common.css?ver=<%=ver%>" rel="stylesheet" />
 </#-if>
   <link href="/resources/app/css/pages/container.css?ver=<%=ver%>" rel="stylesheet" />
   <section id="container"></section>
   <script type="text/nornj" data-auto data-target="#container">
     <Container>
       <#tmpl>
-        <ant-Button type="primary" onClick={goPage1}>页面1</ant-Button>
-        <ant-Button type="primary" onClick={goPage2}>页面2</ant-Button>
+        <div>
+          <ant-Button type="primary" onClick={goPage1}>页面1</ant-Button>
+          <ant-Button type="primary" onClick={goPage2}>页面2</ant-Button>
+        </div>
       </#tmpl>
     </Container>
   </script>

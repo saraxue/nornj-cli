@@ -21,10 +21,10 @@ import styles from './#{pageName}#.m.scss';
 import tmpls from './#{pageName}#.t.html';
 
 //页面容器组件
-@registerTmpl('#{pageName | pascal}#')
+@registerTmpl('#{pageName | capitalize}#')
 @inject('store')
 @observer
-export default class #{pageName | pascal}# extends Component {
+export default class #{pageName | capitalize}# extends Component {
   @observable detailModalVisible = false;
   @observable inputRole = '';
   @observable detailData = [];
@@ -39,7 +39,7 @@ export default class #{pageName | pascal}# extends Component {
       #{pageName}#.getRoleManagementData(),
       #{pageName}#.getRoleMenuTree().then(() => #{pageName}#.initTree())
     ]).then(() => {
-      closeLoading()
+      closeLoading();
     });
   }
 
@@ -55,11 +55,11 @@ export default class #{pageName | pascal}# extends Component {
       Promise.all([
         this.props.store.#{pageName}#.getRoleManagementData(),
       ]).then(() => {
-        closeLoading()
+        closeLoading();
       });
     } else {
       const { store: { #{pageName}# } } = this.props;
-      const searchRole = #{pageName}#.tableDataO.filter(n => n.name.indexOf(this.inputRole.trim()) > -1)
+      const searchRole = #{pageName}#.tableDataO.filter(n => n.name.indexOf(this.inputRole.trim()) > -1);
       #{pageName}#.setTableData(searchRole);
     }
   }
@@ -142,7 +142,7 @@ export default class #{pageName | pascal}# extends Component {
     Promise.all([
       #{pageName}#.getRoleMenuTree({ roleId: record.roleId }).then(() => #{pageName}#.initTree()),
     ]).then(() => {
-      closeLoading()
+      closeLoading();
     });
   }
 
@@ -160,7 +160,7 @@ export default class #{pageName | pascal}# extends Component {
         this.selectedRowKeys = selectedRowKeys;
         this.selectedRows = selectedRows;
       }
-    }
+    };
   }
 
   render() {
@@ -174,7 +174,7 @@ export default class #{pageName | pascal}# extends Component {
   }
 }
 
-@registerTmpl('ModalForm#{pageName | pascal}#')
+@registerTmpl('ModalForm#{pageName | capitalize}#')
 @inject('store')
 @observer
 class ModalForm extends Component {
@@ -182,7 +182,7 @@ class ModalForm extends Component {
 
   //获取树节点的展开形式
   getExpandedKeys(arr) {
-    return arr.filter(n => n.level == 1 || n.level == 2).map(m => { return m.id.toString() });
+    return arr.filter(n => n.level == 1 || n.level == 2).map(m => { return m.id.toString(); });
   }
 
   getDefaultCheckedKeys() {
@@ -200,7 +200,7 @@ class ModalForm extends Component {
   getAllCheckedKeys(key) {
     const _map = toJS(this.props.store.#{pageName}#.authTreeDataMap);
     if (key.length > 1) {
-      let pids = key.map(item => { return _map[item].pids })
+      let pids = key.map(item => { return _map[item].pids; });
       return Array.from(new Set([].concat(...pids)));
     } else {
       return _map[key].pids;
@@ -265,7 +265,7 @@ class ModalForm extends Component {
       let params = {
         roleName: #{pageName}#.addInputRole,
         roleDescribe: #{pageName}#.addInputDes
-      }
+      };
       if (this.props.tabName == '编辑角色' && #{pageName}#.roleId != null) {
         params.roleId = #{pageName}#.roleId;
       }
@@ -319,7 +319,7 @@ class ModalForm extends Component {
       const disableCheckbox = this.disabledTreeNodes.indexOf(item.title) > -1 ? true : false;
 
       if (item.children) {
-        const disabled = level == 1 ? true : item.children.filter(n => this.disabledTreeNodes.indexOf(n.title) > -1).length > 0
+        const disabled = level == 1 ? true : item.children.filter(n => this.disabledTreeNodes.indexOf(n.title) > -1).length > 0;
         level++;
 
         return nj `
@@ -341,7 +341,7 @@ class ModalForm extends Component {
   }
 }
 
-@registerTmpl('ModalDetail#{pageName | pascal}#')
+@registerTmpl('ModalDetail#{pageName | capitalize}#')
 @inject('store')
 @observer
 class ModalDetail extends Component {

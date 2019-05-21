@@ -4,6 +4,7 @@ const path = require('path');
 const glob = require('glob');
 const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const modifyVars = Object.assign({});
 
 //需要webpack排除的依赖包
 const webpackExternals = {
@@ -121,16 +122,14 @@ module.exports = function(webpack, config, isProd, useWatch, useHmr) {
             }, 'postcss-loader', {
               loader: 'less-loader',
               options: {
-                "modifyVars": {
-                  "icon-url": JSON.stringify('../../../../vic-common/resources/libs/iconfont/iconfont')
-                }
+                "modifyVars": modifyVars
               }
             }]
           }),
-          exclude: /.m.less$/
+          exclude: /\.m\.less$/
         },
         {
-          test: /\.m.less$/,
+          test: /\.m\.less$/,
           use: ['style-loader', {
             loader: 'css-loader',
             options: {
@@ -150,12 +149,13 @@ module.exports = function(webpack, config, isProd, useWatch, useHmr) {
           exclude: /node_modules/
         },
         {
-          test: /\.t.html(\?[\s\S]+)*$/,
+          test: /\.t\.html(\?[\s\S]+)*$/,
           use: [{
             loader: 'nornj-loader',
             options: {
               outputH: true,
-              delimiters: 'react'
+              delimiters: 'react',
+              extensionConfig: require('nornj-react/mobx/extensionConfig')
             }
           }]
         },
