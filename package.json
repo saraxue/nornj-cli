@@ -1,6 +1,6 @@
 {
   "name": "nornj-cli",
-  "version": "0.4.2",
+  "version": "0.5.0-alpha.1",
   "description": "The CLI for scaffolding NornJ template projects, and do more things",
   "bin": {
     "nj": "bin/nj"
@@ -17,9 +17,9 @@
   "scripts": {
     "tar": "node lib/tar",
     "format": "prettier-eslint --write lib/**/*.js",
-    "format-css-react-mst-universal": "prettier-stylelint --write templates/react-mst-universal/src/**/*.{css,less,scss}",
-    "format-js-react-mst-universal": "prettier-eslint --write templates/react-mst-universal/**/*.{js,jsx}",
-    "format-react-mst-universal": "npm run format-css-react-mst-universal && npm run format-js-react-mst-universal"
+    "format-css-react-mst": "prettier-stylelint --write templates/react-mst/src/**/*.{css,less,scss}",
+    "format-js-react-mst": "prettier-eslint --write templates/react-mst/**/*.{js,jsx}",
+    "format-react-mst": "npm run format-css-react-mst && npm run format-js-react-mst"
   },
   "repository": {
     "type": "git",
@@ -42,7 +42,7 @@
     "inquirer": "^5.0.0",
     "lodash": "^4.17.4",
     "mkdirp": "^0.5.1",
-    "nornj": "^0.4.18",
+    "nornj": "^5.0.0-rc.12",
     "ora": "^1.3.0",
     "process.args": "0.0.6",
     "targz": "^1.0.1",
